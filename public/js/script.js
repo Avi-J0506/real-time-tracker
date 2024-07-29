@@ -29,15 +29,15 @@ socket.on("recieve-location", (data) => {
   const { id, latitude, longitude } = data;
   map.setView([latitude, longitude]);
   if (markers[id]) {
-    markers.setLatLang([latitude, longitude]);
+    markers[id].setLatLng([latitude, longitude]);
   } else {
     markers[id] = L.marker([latitude, longitude]).addTo(map);
   }
 });
 
-socket.on("user.disconnected", (id) =>{
-    if(markers[id]){
-        markers.removeLayer(markers[id]);
-        delete markers[id];
-    }
-})
+socket.on("user-disconnected", (id) => {
+  if (markers[id]) {
+    map.removeLayer(markers[id]);
+    delete markers[id];
+  }
+});

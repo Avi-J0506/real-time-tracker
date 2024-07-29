@@ -9,6 +9,7 @@ const io = socketio(server);
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+app.set('views', path.join(__dirname, 'views'));
 
 io.on("connection", function (socket) {
   socket.on("send-location", function (data) {
